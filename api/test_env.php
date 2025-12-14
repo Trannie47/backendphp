@@ -1,10 +1,16 @@
 <?php
 header('Content-Type: application/json');
+require __DIR__ . '/../config/database.php';
 
-echo json_encode([
-    'DB_HOST' => getenv('DB_HOST'),
-    'DB_PORT' => getenv('DB_PORT'),
-    'DB_NAME' => getenv('DB_NAME'),
-    'DB_USER' => getenv('DB_USER'),
-    'DB_PASS' => getenv('DB_PASS') ? '***SET***' : null,
-]);
+try {
+    $stmt = $conn->query("SELECT 1");
+    echo json_encode([
+        'status' => 'OK',
+        'db' => getenv('DB_NAME')
+    ]);
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => $e->getMessage()
+    ]);
+}
