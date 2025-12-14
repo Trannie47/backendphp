@@ -1,24 +1,34 @@
 <?php
-// ===== LOAD .env FILE =====
+
+// ===== LOAD .env CHỈ KHI CHẠY LOCAL =====
 $envFile = __DIR__ . '/../.env';
 
-if (!file_exists($envFile)) {
-    die('Missing .env file');
+if (file_exists($envFile)) {
+    $env = parse_ini_file($envFile);
+    foreach ($env as $key => $value) {
+        putenv("$key=$value");
+    }
 }
 
-$env = parse_ini_file($envFile);
-$host = getenv('DB_HOST')?:$env['DB_HOST'];
-$db   = getenv('DB_NAME')?:$env['DB_PORT'];
-$user = getenv('DB_USER')?:$env['DB_USER'];
-$pass = getenv('DB_PASS')?:$env['DB_PASS'];;
+// ===== LẤY BIẾN MÔI TRƯỜNG =====
+$host = getenv('DB_HOST');
+$db   = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASS');
 $port = getenv('DB_PORT') ?: 3306;
 
+if (!$host || !$db || !$user) {
+    die('Missing database environment variables');
+}
+
+// ===== KẾT NỐI DB =====
 $conn = new PDO(
-    "mysql:host=$host;port=$port;dbname=$db;charset=utf8",
+    "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4",
     $user,
     $pass,
     [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
     ]
 );
