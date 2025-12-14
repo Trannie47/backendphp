@@ -2,7 +2,6 @@
 
 // ===== LOAD .env CHỈ KHI CÓ (LOCAL) =====
 $envFile = __DIR__ . '/../.env';
-
 if (file_exists($envFile)) {
     $env = parse_ini_file($envFile);
     foreach ($env as $key => $value) {
@@ -10,7 +9,7 @@ if (file_exists($envFile)) {
     }
 }
 
-// ===== LẤY BIẾN MÔI TRƯỜNG =====
+// ===== ENV =====
 $host = getenv('DB_HOST');
 $db   = getenv('DB_NAME');
 $user = getenv('DB_USER');
@@ -21,7 +20,7 @@ if (!$host || !$db || !$user) {
     die('Missing database environment variables');
 }
 
-// ===== KẾT NỐI DB =====
+// ===== PDO =====
 $conn = new PDO(
     "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4",
     $user,
