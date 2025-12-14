@@ -1,7 +1,8 @@
 FROM dunglas/frankenphp:php8.4-bookworm
 
-# Cài PDO MySQL
+# Cài PDO MySQL (BẮT BUỘC)
 RUN apt-get update && apt-get install -y \
+    default-mysql-client \
     libmysqlclient-dev \
     && docker-php-ext-install pdo pdo_mysql \
     && apt-get clean \
@@ -10,9 +11,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . .
 
-# Railway cấp PORT
-ENV PORT=8080
-EXPOSE 8080
+# Railway cấp PORT động → PHẢI dùng biến PORT
+EXPOSE 3000
 
-# Serve thư mục /app
-CMD ["frankenphp", "run", "--port", "8080", "--root", "/app"]
+CMD sh -c 'frankenphp run --port ${PORT} --root /app'
