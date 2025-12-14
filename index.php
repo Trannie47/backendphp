@@ -1,2 +1,5 @@
 <?php
-require __DIR__ . '/config/database.php';
+echo json_encode([
+    "status" => "ok",
+    "service" => "backendphp"
+]);
