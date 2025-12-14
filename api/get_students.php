@@ -2,7 +2,8 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=utf-8");
 
-require "../config/database.php";
+require __DIR__ . '/../config/database.php';
+
 
 try {
     $stmt = $conn->query("SELECT * FROM Students");
