@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . .
 
-# Railway dùng biến PORT
+# Railway cấp PORT
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["frankenphp", "run", "--port", "8080"]
+# Serve thư mục /app
+CMD ["frankenphp", "run", "--port", "8080", "--root", "/app"]
