@@ -1,5 +1,2 @@
 <?php
-echo json_encode([
-    "status" => "ok",
-    "service" => "backendphp"
-]);
+echo "Backend PHP Railway is running";
