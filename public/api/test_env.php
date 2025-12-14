@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require __DIR__ . '/../config/database.php';
+require __DIR__ . '/../../config/database.php';
 
 try {
     $stmt = $conn->query("SELECT 1");
