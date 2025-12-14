@@ -7,12 +7,11 @@ if (!file_exists($envFile)) {
 }
 
 $env = parse_ini_file($envFile);
-
-$host = $env['DB_HOST'];
-$port = $env['DB_PORT'];
-$db   = $env['DB_NAME'];
-$user = $env['DB_USER'];
-$pass = $env['DB_PASS'];
+$host = getenv('DB_HOST')?:$env['DB_HOST'];
+$db   = getenv('DB_NAME')?:$env['DB_PORT'];
+$user = getenv('DB_USER')?:$env['DB_USER'];
+$pass = getenv('DB_PASS')?:$env['DB_PASS'];;
+$port = getenv('DB_PORT') ?: 3306;
 
 $conn = new PDO(
     "mysql:host=$host;port=$port;dbname=$db;charset=utf8",
