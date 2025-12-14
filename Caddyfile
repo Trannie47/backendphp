@@ -1,3 +1,7 @@
+{
+    auto_https off
+}
+
 http://{$PORT} {
     root * /app/public
     php_server
